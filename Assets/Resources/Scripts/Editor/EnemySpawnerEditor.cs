@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 //何のエディターか示す
 [CustomEditor(typeof(EnemySpawner))]
 public class EnemySpawnerEditor : Editor
@@ -10,6 +11,9 @@ public class EnemySpawnerEditor : Editor
     //エディター拡張
     public override void OnInspectorGUI()
     {
+
+        DrawDefaultInspector();
+
         var ES = target as EnemySpawner;
         //ラベル(文字)を出す。
         EditorGUILayout.LabelField("スポーンの仕方(時間)");
@@ -25,14 +29,17 @@ public class EnemySpawnerEditor : Editor
             EditorGUILayout.HelpBox("ループ数は0以下にすると無限ループします。", MessageType.Info);
             ES.LoopNum = EditorGUILayout.IntField("ループ数", ES.LoopNum);
         }
+
+        List<EnemySpawner.EnemySpawn> list = ES.Spawn;
+
         //折り畳み
         if (folding = EditorGUILayout.Foldout(folding, "スポーンさせるエネミーたち"))
         {
             //箱で囲むための引数
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            EditorGUILayout.LabelField("配列サイズ:" + ES.Spawn.Count.ToString());
+            EditorGUILayout.LabelField("配列サイズ:" + list.Count.ToString());
             //リスト表示
-            for (short i = 0; i < ES.Spawn.Count; i++)
+            for (short i = 0; i < list.Count; i++)
             {
                 EditorGUILayout.BeginVertical(GUI.skin.box);
                 //ボタンとか
@@ -44,46 +51,46 @@ public class EnemySpawnerEditor : Editor
                         if (i > 0)
                         {
                             //退避
-                            EnemySpawner.EnemySpawn es = ES.Spawn[i];
-                            ES.Spawn.RemoveAt(i);
-                            ES.Spawn.Insert(i - 1, es);
+                            EnemySpawner.EnemySpawn es = list[i];
+                            list.RemoveAt(i);
+                            list.Insert(i - 1, es);
                         }
                     }
                     if (GUILayout.Button("▼"))
                     {
-                        if (i < ES.Spawn.Count - 1)
+                        if (i < list.Count - 1)
                         {
                             //退避
-                            EnemySpawner.EnemySpawn es = ES.Spawn[i];
-                            ES.Spawn.RemoveAt(i);
-                            ES.Spawn.Insert(i + 1, es);
+                            EnemySpawner.EnemySpawn es = list[i];
+                            list.RemoveAt(i);
+                            list.Insert(i + 1, es);
                         }
                     }
                     if (GUILayout.Button("削除"))
                     {
                         //リストから削除する
-                        ES.Spawn.Remove(ES.Spawn[i]);
+                        list.Remove(list[i]);
                     }
                     EditorGUILayout.EndHorizontal();
                 }
                 //シーンのオブジェクトは割り当ててほしくないので最後のフラグはfalse
-                ES.Spawn[i].enemy = (Enemy)EditorGUILayout.ObjectField("エネミー", ES.Spawn[i].enemy, typeof(Enemy), false);
-                ES.Spawn[i].num = EditorGUILayout.IntField("スポーン数", ES.Spawn[i].num);
+                list[i].enemy = (Enemy)EditorGUILayout.ObjectField("エネミー", list[i].enemy, typeof(Enemy), false);
+                list[i].num = EditorGUILayout.IntField("スポーン数", list[i].num);
                 if (!ES.Constant)
-                    ES.Spawn[i].spawntime = EditorGUILayout.FloatField("スポーン時間", ES.Spawn[i].spawntime);
+                    list[i].spawntime = EditorGUILayout.FloatField("スポーン時間", list[i].spawntime);
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndVertical();
             //配列に追加する
             EditorGUILayout.BeginVertical(GUI.skin.box);
-            Spawn.enemy = (Enemy)EditorGUILayout.ObjectField("エネミー", Spawn.enemy, typeof(Enemy), false);
+            Spawn.enemy = EditorGUILayout.ObjectField("エネミー", Spawn.enemy, typeof(Enemy), false) as Enemy;
             Spawn.num = EditorGUILayout.IntField("スポーン数", Spawn.num);
             if (!ES.Constant)
                 Spawn.spawntime = EditorGUILayout.FloatField("スポーン時間", Spawn.spawntime);
             if (GUILayout.Button("追加"))
             {
                 //リストに追加
-                ES.Spawn.Add(Spawn);
+                list.Add(Spawn);
                 //新しいものを作成
                 Spawn = new EnemySpawner.EnemySpawn();
             }

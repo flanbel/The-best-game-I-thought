@@ -22,13 +22,15 @@ Shader "custom/monsterShader" {
         Pass {
             Name "ForwardBase"
             Tags {
-                "LightMode"="ForwardBase"
+                //"LightMode"="ForwardBase"
+				"RenderType" = "Transparent"
+				"Queue" = "Transparent"
             }
-            
+			Blend SrcAlpha OneMinusSrcAlpha
             
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag
+            #pragma fragment frag alpha
             #define UNITY_PASS_FORWARDBASE
             #include "UnityCG.cginc"
             #include "AutoLight.cginc"
@@ -108,7 +110,7 @@ Shader "custom/monsterShader" {
                 float3 emissive = (_illumColor.rgb*_illumMask_var.rgb);
 /// Final Color:
                 float3 finalColor = diffuse + specular + emissive;
-                return fixed4(finalColor,1);
+                return fixed4(finalColor, _illumColor.a);
             }
             ENDCG
         }

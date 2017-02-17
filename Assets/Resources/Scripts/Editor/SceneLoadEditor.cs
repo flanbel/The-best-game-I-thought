@@ -44,7 +44,7 @@ public class SceneLoadEditor : Editor
                 EditorGUILayout.EndHorizontal();
             }
 
-            add = (SceneLoad)EditorGUILayout.ObjectField("追加", add, typeof(SceneLoad), true);
+            add = EditorGUILayout.ObjectField("追加", add, typeof(SceneLoad), true) as SceneLoad;
             if (add)
             {
                 //
