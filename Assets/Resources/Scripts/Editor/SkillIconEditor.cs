@@ -69,7 +69,7 @@ public class SkillIconEditor : Editor
             // 折りたたみ表示
             if (folding[0] = EditorGUILayout.Foldout(folding[0], "親たち"))
             {
-                EditorGUILayout.LabelField("配列サイズ     "+ len.ToString());
+                EditorGUILayout.LabelField("配列サイズ     " + len.ToString());
                 // リスト表示
                 for (short i = 0; i < len; ++i)
                 {

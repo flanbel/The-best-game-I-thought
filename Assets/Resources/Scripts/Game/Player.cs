@@ -23,32 +23,8 @@ public class Player : Character
     [SerializeField]
     private Image OrbImage;
     //パワーオーブ
-    [System.Serializable]
-    public class PowerOrb
-    {
-        //最大値
-        [SerializeField]
-        private int Max = 0;
-        public int max { get { return Max; } }
-        //現在
-        [SerializeField]
-        private int Now = 0;
-        public int now { get { return Now; } }
-        //オーブの色
-        [SerializeField]
-        private Color color = new Color(1, 1, 1, 0.5f);
-        //追加
-        public void AddExp(int add)
-        {
-            //Maxより大きくならないように
-            Now = Mathf.Min(Now + add, Max);
-        }
-    }
     [SerializeField]
     private PowerOrb Orb;
-    public PowerOrb orb { get { return Orb; } }
-    
-
 
     // Use this for initialization
     void Start() {
@@ -57,9 +33,9 @@ public class Player : Character
         if (Data = GameObject.Find("Data"))        
         {
             //パラメータ取得
-            Parm = Data.GetComponent<DataManager>().info.PParams;
+            Parm = Data.GetComponent<DataManager>().param;
             //オーブ情報取得
-            Orb = Data.GetComponent<DataManager>().info.POrb;
+            Orb = Data.GetComponent<DataManager>().orb;
         }
         //タグ設定
         DamageCollisionTag = "Enemy_Damage_Collision";
@@ -194,16 +170,20 @@ public class Player : Character
         //体力再計算
         HPbarImage.fillAmount = Parm.hp / Parm.mhp;
     }
-    //おーぶ更新
+    //オーブに経験値を加算し、画像更新
     public void AddExp(int add)
     {
-        orb.AddExp(add);
-        OrbImage.fillAmount = (float)orb.now / (float)orb.max;
+        Orb.AddExp(add);
+        //画像更新
+        OrbImage.fillAmount = (float)Orb.now / (float)Orb.max;
     }
+    //データを保存するために送信
     public void SendData()
     {
-        if(Data)
-        Data.GetComponent<DataManager>().UpdateOrb(Orb);
+        if (Data)
+        {
+            Data.GetComponent<DataManager>().SaveOrb(Orb);
+        }
     }
     //攻撃判定を出す(アニメーションイベントから呼び出す)
     protected override void CreateAttackCollision(float lifetime = 5.0f)
@@ -212,9 +192,9 @@ public class Player : Character
         GameObject coll = Instantiate(DCPrefab);
         //タグの設定
         coll.tag = "Player_Damage_Collision";
-        Weapon w = have.GetComponent<Weapon>();
+        WeaponPrefab w = have.GetComponent<WeaponPrefab>();
         //親子関係登録
-        coll.transform.SetParent(w.collpos.transform,false);
+        coll.transform.SetParent(w.collpos.transform, false);
         //いろいろ初期化
         coll.transform.localScale = w.size;
         //寿命設定

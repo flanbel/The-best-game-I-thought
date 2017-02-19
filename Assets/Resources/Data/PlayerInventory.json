@@ -1,0 +1,15 @@
+{
+    "FitList": [
+        {
+            "FitType": 0,
+            "ID": 0,
+            "Name": ""
+        },
+        {
+            "FitType": 0,
+            "ID": 0,
+            "Name": "test"
+        }
+    ],
+    "MaxPossessionNum": 100
+}

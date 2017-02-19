@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(SphereCollider))]
-public class PossibleAttackCollision : MonoBehaviour {
-    
+
+public class ToEquipButton : MonoBehaviour {
+
 	// Use this for initialization
 	void Start () {
 	

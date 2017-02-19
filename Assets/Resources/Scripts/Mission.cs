@@ -16,7 +16,7 @@ public class Mission : MonoBehaviour {
         public Enemy target { get { return Target; } }
         //倒す数
         [SerializeField]
-        private int Number;
+        private int Number = 1;
         //倒した数
         [SerializeField]
         private int Count;

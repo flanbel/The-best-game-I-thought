@@ -26,7 +26,7 @@ public class SceneLoad : MonoBehaviour
     }
     //情報を送る相手。
     [SerializeField]
-    public List<SceneLoad> ToSend;//アドレスを確保してないと保存されない。
+    public List<SceneLoad> ToSend;
     public List<SceneLoad> tosend { get { return ToSend; } }
 
     //送信

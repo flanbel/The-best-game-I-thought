@@ -1,5 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+
+//キャラクターのパラメータ
+[System.Serializable]//classはこいつがないとInspectorに表示されないので注意！
+public class CharacterParameters
+{
+    //最大体力
+    [SerializeField]
+    protected float MAXHP = 100.0f;
+    //体力
+    [SerializeField]
+    protected float HP = 100.0f;
+    //攻撃力
+    [SerializeField]
+    protected float ATK = 0.0f;
+    //防御力
+    [SerializeField]
+    protected float DEF = 0.0f;
+    //運(乱数に関するものがよくなる。)
+    [SerializeField]
+    protected float LUK = 0.0f;
+    //速度(移動速度と回避力に影響)
+    [SerializeField]
+    protected float SPD = 0.0f;
+    public float mhp { get { return MAXHP; } set { MAXHP = value; } }
+    //プレイヤーで継承するのでvirtual
+    public float hp { get { return HP; } set { HP = value; } }
+    public float atk { get { return ATK; } }
+    public float def { get { return DEF; } }
+    public float luk { get { return LUK; } }
+    public float spd { get { return SPD; } }
+}
+
 [RequireComponent(typeof(AudioSource))]
 //キャラクターの抽象クラス
 public abstract class Character : MonoBehaviour {
@@ -9,36 +41,7 @@ public abstract class Character : MonoBehaviour {
     protected static GameObject DTextPrefab;
     //死んだかどうか
     protected bool IsDied = false;
-    //キャラクターのパラメータ
-    [System.Serializable]//classはこいつがないとInspectorに表示されないので注意！
-    public class CharacterParameters
-    {
-        //最大体力
-        [SerializeField]
-        protected float MAXHP = 100.0f;
-        //体力
-        [SerializeField]
-        protected float HP = 100.0f;
-        //攻撃力
-        [SerializeField]
-        protected float ATK = 0.0f;
-        //防御力
-        [SerializeField]
-        protected float DEF = 0.0f;
-        //運(乱数に関するものがよくなる。)
-        [SerializeField]
-        protected float LUK = 0.0f;
-        //速度(移動速度と回避力に影響)
-        [SerializeField]
-        protected float SPD = 0.0f;
-        public float mhp { get { return MAXHP; } set { MAXHP = value; } }
-        //プレイヤーで継承するのでvirtual
-        public float hp { get { return HP; } set { HP = value; } }
-        public float atk { get { return ATK; } }
-        public float def { get { return DEF; } }
-        public float luk { get { return LUK; } }
-        public float spd { get { return SPD; } }
-    }
+   
 
     // キャラクターのパラメータ
     [SerializeField]
