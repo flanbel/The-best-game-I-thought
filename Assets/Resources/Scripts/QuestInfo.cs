@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
-
 //クエストの情報
 public class QuestInfo : MonoBehaviour {
     //クエストの名前
@@ -11,22 +11,14 @@ public class QuestInfo : MonoBehaviour {
     [SerializeField, TooltipAttribute("クエストの説明文"), TextAreaAttribute(0,14)]
     private string Description;
     public string description { get { return Description; } }
-    //ミッション
+    //ミッション内容
+    [SerializeField]
     private Mission mission;
 
-    void Start()
+    public void SaveMission()
     {
-        //ミッション取得
-        mission = GetComponent<Mission>();
-    }
-
-    public void CreateQuestInfoObject()
-    {
-        GameObject questobj = new GameObject();
-        questobj.name = "QuestInfo";
-        //削除されない
-        DontDestroyOnLoad(questobj);
-        QuestInfo info = questobj.AddComponent<QuestInfo>();
-        info = this;
+        //ミッション情報保存
+        SaveData.SetClass("Mission", mission);
+        SaveData.Save();
     }
 }

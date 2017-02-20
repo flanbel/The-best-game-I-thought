@@ -25,17 +25,7 @@ public class QuestManager : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         //ミッションを取得
-        GameObject m;
-        if (m = GameObject.Find("Data/Mission"))
-        {
-            Mission = m.GetComponent<Mission>();
-        }
-        //取得できなかった
-        else
-        {
-            //debug用
-            Mission = GameObject.Find("DebugMission").GetComponent<Mission>();
-        }
+        Mission = SaveData.GetClass("Mission", new Mission());
         Load = GetComponent<SceneLoad>();
     }
 
@@ -70,11 +60,10 @@ public class QuestManager : MonoBehaviour {
             {
                 //最初の状態に戻す
                 IsClear = false;
-                //プレイヤーの情報送信
-                player.SendData();
-                //戻る！
-                Load.AddLoad("Menu");
-                Load.UnLoad("Game");
+                //プレイヤーの情報セーブ
+                player.SaveParam();
+                //シーン切り替え
+                Load.ChengeScene("Menu");
             }
         }
 	}

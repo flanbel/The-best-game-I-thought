@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 //リクエスト(絶対つける)
-[RequireComponent(typeof(Mission))]
 [RequireComponent(typeof(QuestInfo))]
 public class QuestSelectButton : MonoBehaviour, IPointerEnterHandler
 {

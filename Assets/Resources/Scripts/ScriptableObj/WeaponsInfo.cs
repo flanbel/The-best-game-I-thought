@@ -4,7 +4,7 @@ using System.Collections;
 public class WeaponsInfo : ScriptableObject
 {
     //JSON用中間クラス
-    public class JsonWeapon
+    public class Json
     {
         public Weapon[] weapons;
     }

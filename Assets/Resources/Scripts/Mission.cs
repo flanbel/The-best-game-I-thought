@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 //ミッションを設定するクラス
-public class Mission : MonoBehaviour {
+[System.Serializable]
+public class Mission {
     [System.Serializable]
     public class MissionTarget
     {
@@ -10,10 +11,10 @@ public class Mission : MonoBehaviour {
         [SerializeField]
         private bool Complete = false;
         public bool complete { get { CheckComplate(); return Complete; } }
-        //倒すエネミー(nullなら指定なし。)
+        //倒すエネミーのID
         [SerializeField]
-        private Enemy Target = null;
-        public Enemy target { get { return Target; } }
+        private int EnemyID = -1;
+        public int id { get { return EnemyID; } }
         //倒す数
         [SerializeField]
         private int Number = 1;
@@ -25,7 +26,7 @@ public class Mission : MonoBehaviour {
         public void CheckComplate()
         {
             //指定数以上倒した。
-            Complete = (Count >= Number) ? true : false;
+            Complete = (Count >= Number);
         }
     }
     //ミッションターゲットのリスト
@@ -57,8 +58,8 @@ public class Mission : MonoBehaviour {
     {
         foreach(MissionTarget MT in MissionT)
         {
-            if (MT.target == null ||        //指定なし
-                MT.target.GetType() == enemy.GetType())    //クラスの一致
+            if (MT.id == -1 ||        //指定なし
+                MT.id == enemy.id)    //ID比較
             {
                 //カウント増加
                 MT.count++;

@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
+//置く場所は適当ですね。
+//セーブデータの名前を書いてます
+//ToString()を使ってね
+public enum SaveDataName
+{
+    PlayerParameter,    //プレイヤーのパラメータ
+    PlayerOrb,          //オーブの情報
+    PlayerInventory,    //持ち物
+    PlayerEquipment,    //装備品
+    Mission,            //ミッション情報
+}
 
 [RequireComponent(typeof(Rigidbody))]
 //プレイヤークラス
 public class Player : Character
 {
-    //データを持ったオブジェクト
-    private GameObject Data;
     //カメラ
     private GameObject GameCamera;
     //持っているもの
@@ -27,16 +38,14 @@ public class Player : Character
     private PowerOrb Orb;
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         
-        //データから必要な情報取得
-        if (Data = GameObject.Find("Data"))        
-        {
-            //パラメータ取得
-            Parm = Data.GetComponent<DataManager>().param;
-            //オーブ情報取得
-            Orb = Data.GetComponent<DataManager>().orb;
-        }
+        //パラメータ取得
+        Parm = SaveData.GetClass(SaveDataName.PlayerParameter.ToString(), new CharacterParameters());
+        //オーブ情報取得
+        Orb = SaveData.GetClass(SaveDataName.PlayerOrb.ToString(), new PowerOrb());
+
         //タグ設定
         DamageCollisionTag = "Enemy_Damage_Collision";
         //プレハブ取得
@@ -56,7 +65,7 @@ public class Player : Character
         have = transform.FindChild("Hand").GetChild(0).gameObject;
         //アニメーション取得
         anim = GetComponent<Animator>();
-        
+
         //アニメーションコントローラー取得
         RuntimeAnimatorController RAC = anim.runtimeAnimatorController;
         //アニメーションクリップ数配列を確保
@@ -178,12 +187,12 @@ public class Player : Character
         OrbImage.fillAmount = (float)Orb.now / (float)Orb.max;
     }
     //データを保存するために送信
-    public void SendData()
+    public void SaveParam()
     {
-        if (Data)
-        {
-            Data.GetComponent<DataManager>().SaveOrb(Orb);
-        }
+        SaveData.SetClass("PlayerParam", Parm);
+        //オーブ情報取得
+        SaveData.SetClass("PlayerOrb", Orb);
+        SaveData.Save();
     }
     //攻撃判定を出す(アニメーションイベントから呼び出す)
     protected override void CreateAttackCollision(float lifetime = 5.0f)

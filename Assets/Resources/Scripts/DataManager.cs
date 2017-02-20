@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+//データの管理をしていたもの(とりあえず残しておく)
+//今はSaveDataクラスが管理している
 
 public class DataManager : MonoBehaviour {
     //プレイヤーのパラメータ
@@ -34,6 +36,13 @@ public class DataManager : MonoBehaviour {
         LoadSaveData("PlayerOrb.json" ,out Orb);
         LoadSaveData("PlayerInventory.json",out Invents);
         LoadSaveData("PlayerEquipment.json", out Equip);
+
+        
+        SaveData.SetClass("PlayerParameter", Parameter);
+        SaveData.SetClass("PlayerOrb", Orb);
+        SaveData.SetClass("PlayerInventory", Invents);
+        SaveData.SetClass("PlayerEquipment", Equip);
+        SaveData.Save();
     }
     //セーブデータ読み込み
     void LoadSaveData<T>(string filename,out T obj)
@@ -108,5 +117,10 @@ public class DataManager : MonoBehaviour {
     public void SaveInventory()
     {
         SaveJsonFile("PlayerInventory.json", Invents);
+    }
+    //装備品セーブ
+    public void SaveEquipment()
+    {
+        SaveJsonFile("PlayerEquipment.json", Equip);
     }
 }

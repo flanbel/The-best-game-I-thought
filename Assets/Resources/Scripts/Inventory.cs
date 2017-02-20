@@ -4,7 +4,7 @@ using System.Collections;
 //インベントリクラス
 [System.Serializable]
 public class Inventory {
-    //持ち物
+    //持っている装備品リスト
     [SerializeField]
     List<Fitment> FitList = new List<Fitment>();
     public List<Fitment> fitlist { get { return FitList; } }

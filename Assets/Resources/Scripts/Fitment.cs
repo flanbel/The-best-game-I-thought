@@ -13,10 +13,13 @@ public class Fitment
     }
     [SerializeField]
     private FITTYPE FitType = FITTYPE.NONE;
+    public FITTYPE fitType { get { return FitType; } }
     [SerializeField]
     private int ID = -1;
+    public int id { get { return ID; } }
     [SerializeField]
-    private string Name = "none";
+    private string Name = "NULL";
+    public string name { get { return Name; } }
     //装備中(仮)
     bool Equip = false;
 }

@@ -14,7 +14,9 @@ public class Enemy : Character
     //経験値プレハブ
     static GameObject EXPPrfab;
 
-
+    [SerializeField]
+    private int EnemyID = -1;
+    public int id { get { return EnemyID; } }
     //消えるまでの時間
     [SerializeField]
     private float FadeTime = 3.0f;
