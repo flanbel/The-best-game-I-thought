@@ -15,6 +15,7 @@ public class ToEquipSceneButton : MonoBehaviour {
         // IEnumeratorを取得する
         //これでコルーチンを呼び出さないと望んだものと異なる結果になる
         addEquip = AddEquipScene();
+        //セーブデータから装備情報取得
         Equipment E = SaveData.GetClass(SaveDataName.PlayerEquipment.ToString(), new Equipment());
         //装備情報取得
         switch (FitType)
@@ -28,7 +29,8 @@ public class ToEquipSceneButton : MonoBehaviour {
             default:
                 break;
         }
-        transform.GetChild(0).GetComponent<Text>().text = Fit.name;
+        //ボタンの名前設定
+        transform.GetChild(0).GetComponent<Text>().text = "E:" + Fit.name;
     }
 
     void Update()

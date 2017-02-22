@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public enum SaveDataName
 {
     PlayerParameter,    //プレイヤーのパラメータ
+    AfterParameter,     //装備品込みのパラメータ
     PlayerOrb,          //オーブの情報
     PlayerInventory,    //持ち物
     PlayerEquipment,    //装備品
@@ -42,7 +43,7 @@ public class Player : Character
     {
         
         //パラメータ取得
-        Parm = SaveData.GetClass(SaveDataName.PlayerParameter.ToString(), new CharacterParameters());
+        Parm = SaveData.GetClass(SaveDataName.AfterParameter.ToString(), new CharacterParameters());
         //オーブ情報取得
         Orb = SaveData.GetClass(SaveDataName.PlayerOrb.ToString(), new PowerOrb());
 
@@ -189,9 +190,9 @@ public class Player : Character
     //データを保存するために送信
     public void SaveParam()
     {
-        SaveData.SetClass("PlayerParam", Parm);
+        //SaveData.SetClass("PlayerParam", Parm);
         //オーブ情報取得
-        SaveData.SetClass("PlayerOrb", Orb);
+        SaveData.SetClass(SaveDataName.PlayerOrb.ToString(), Orb);
         SaveData.Save();
     }
     //攻撃判定を出す(アニメーションイベントから呼び出す)

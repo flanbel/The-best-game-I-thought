@@ -43,4 +43,23 @@ public class CreateAsset : EditorWindow
         AssetDatabase.CreateAsset(obj, DataPath + filename + ".asset");
         AssetDatabase.Refresh();
     }
+
+    [MenuItem("Assets/Create/CreateAssetFromJson(Armor)")]
+    static void CreateArmorAssetFromJson()
+    {
+        string DataPath = "Assets/Resources/Data/";
+        string filename = "ArmorsInfo";
+        //Jsonテキストをロード。
+        TextAsset textAssets = AssetDatabase.LoadAssetAtPath<TextAsset>(DataPath + filename + ".json");
+
+        //Jsonをデシリアライズ。ScriptableObjectを継承したクラスはデシリアライズできないのでワンクッション入れる。
+        ArmorsInfo.Json json = JsonUtility.FromJson<ArmorsInfo.Json>(textAssets.text);
+        ArmorsInfo obj = new ArmorsInfo();
+        //Jsonをデシリアライズ。
+        obj.armors = json.armors;
+
+        //ScriptedObjectのシリアライズを行ってUnityのアセット化。
+        AssetDatabase.CreateAsset(obj, DataPath + filename + ".asset");
+        AssetDatabase.Refresh();
+    }
 }

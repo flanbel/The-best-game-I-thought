@@ -11,7 +11,8 @@ public class Inventory {
     //最大保有数
     [SerializeField]
     int MaxPossessionNum = 100;
-    public void AddItem<T>(T fit) where T : Fitment
+    //装備品追加
+    public void AddFit<T>(T fit) where T : Fitment
     {
         //所持限界に達していない
         if (FitList.Count < MaxPossessionNum)

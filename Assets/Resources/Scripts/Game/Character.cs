@@ -20,16 +20,15 @@ public class CharacterParameters
     //運(乱数に関するものがよくなる。)
     [SerializeField]
     protected float LUK = 0.0f;
-    //速度(移動速度と回避力に影響)
+    //敏捷(移動速度と回避力に影響)
     [SerializeField]
     protected float SPD = 0.0f;
     public float mhp { get { return MAXHP; } set { MAXHP = value; } }
-    //プレイヤーで継承するのでvirtual
     public float hp { get { return HP; } set { HP = value; } }
-    public float atk { get { return ATK; } }
-    public float def { get { return DEF; } }
-    public float luk { get { return LUK; } }
-    public float spd { get { return SPD; } }
+    public float atk { get { return ATK; }set { ATK = value; } }
+    public float def { get { return DEF; } set { DEF = value; } }
+    public float luk { get { return LUK; } set { LUK = value; } }
+    public float spd { get { return SPD; } set { SPD = value; } }
 }
 
 [RequireComponent(typeof(AudioSource))]

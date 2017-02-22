@@ -1,1 +1,9 @@
-﻿{"weapons":[{"FitType":0,"ID":0,"Name":"test","WeaponType":0,"ATK":0},{"FitType":0,"ID":1,"Name":"練習用の剣","WeaponType":0,"ATK":10}]}
+﻿{"weapons":
+[
+{"FitType":1,"ID":0,"Name":"初心者の剣","Text":"初心者でも扱いやすい剣","HP":0,"ATK":3,"DEF":0,"SPD":0,"LUK":0,"WeaponType":0}
+,{"FitType":1,"ID":1,"Name":"冒険者の剣","Text":"これであなたも一人前の冒険者","HP":0,"ATK":5,"DEF":0,"SPD":0,"LUK":0,"WeaponType":0}
+,{"FitType":1,"ID":2,"Name":"鉄の剣","Text":"他の剣も鉄製だろ！だって？細かいことは(ry","HP":0,"ATK":8,"DEF":0,"SPD":0,"LUK":0,"WeaponType":0}
+,{"FitType":1,"ID":3,"Name":"鋼鉄の剣","Text":"鋼鉄で作られた剣、硬そう","HP":0,"ATK":10,"DEF":0,"SPD":0,"LUK":0,"WeaponType":0}
+,{"FitType":1,"ID":4,"Name":"スチールブレード","Text":"カッコいい","HP":0,"ATK":13,"DEF":0,"SPD":0,"LUK":0,"WeaponType":0}
+,{"FitType":1,"ID":5,"Name":"ハヤブサの剣","Text":"とても軽い剣","HP":0,"ATK":8,"DEF":0,"SPD":5,"LUK":0,"WeaponType":0}
+]}
